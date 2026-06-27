@@ -1,8 +1,8 @@
 import type { NextConfig } from "next";
 
-// NEW-HIGH-4: fail-build se NEXT_PUBLIC_APP_URL não estiver setada em prod.
-if (process.env.NODE_ENV === "production" && !process.env.NEXT_PUBLIC_APP_URL) {
-  throw new Error("NEXT_PUBLIC_APP_URL é obrigatório em produção. Defina no env do deploy.");
+// Fallback para build sem variável (EasyPanel passa via ARG depois do build)
+if (!process.env.NEXT_PUBLIC_APP_URL) {
+  process.env.NEXT_PUBLIC_APP_URL = "https://app.nexthub.com.br";
 }
 
 const IS_PROD = process.env.NODE_ENV === "production";
